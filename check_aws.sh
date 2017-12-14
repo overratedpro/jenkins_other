@@ -10,7 +10,7 @@
 #
 
 AWS_INSTANCE_STATUS="$( aws ec2 describe-regions --output json |\
-    jq --compact-output --monochrome-output '.Regions | .[] | .RegionName' |\
+    jq --compact-output '.Regions | .[] | .RegionName' |\
     xargs -r -n1 -- aws ec2 describe-instance-status --output json --region |\
     jq --slurp --compact-output --monochrome-output \
         --from-file "$(dirname "${BASH_SOURCE[0]}")/check_aws.jq" )"
